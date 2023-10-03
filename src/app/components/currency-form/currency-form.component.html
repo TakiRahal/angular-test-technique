@@ -1,4 +1,35 @@
-
-<label class="form-label" id="label-currency-service">
-    Le taux de change: <span>{{valueExchange}}</span>
-</label>
+<form [formGroup]="formGroup">
+    <section>
+        <label class="form-label" id="label-currency-service">
+            Le taux de change: <span>{{valueExchange}}</span>
+        </label>
+        <div class="input-group mb-3 has-validation">
+                        <span class="input-group-text"
+                              id="exchange-value">EUR</span>
+            <input type="number"
+                   [className]="formGroup.get('amount')?.invalid && submitted ? 'form-control is-invalid' : 'form-control'"
+                   placeholder="Montant a calculer"
+                   aria-label="amount"
+                   aria-describedby="exchange-value"
+                   formControlName="amount">
+            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                Remplir le Montant
+            </div>
+        </div>
+        <div class="mt-2 card text-center text-bg-warning">
+            <div class="card-header">
+                Taux de change {{valueExchange}}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{resultCalculate}} USD
+                </h5>
+                <p class="card-text">
+                    {{formGroup.get('amount')?.value}} EUR
+                    =
+                    {{resultCalculate}} USD
+                </p>
+            </div>
+        </div>
+    </section>
+</form>
