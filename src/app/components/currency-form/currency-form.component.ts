@@ -22,7 +22,7 @@ export class CurrencyFormComponent  implements OnInit, OnDestroy{
     variationExchange!: number;
 
     constructor(private fb: FormBuilder,
-                private currencyService: CurrencyService) {}
+                public currencyService: CurrencyService) {}
     ngOnInit(): void {
 
         // Initialisation form
