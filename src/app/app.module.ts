@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CurrencyFormComponent } from './components/currency-form/currency-form.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { CurrencyListComponent } from './components/currency-list/currency-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CurrencyFormComponent
+    CurrencyFormComponent,
+    CurrencyListComponent
   ],
   imports: [
     BrowserModule,

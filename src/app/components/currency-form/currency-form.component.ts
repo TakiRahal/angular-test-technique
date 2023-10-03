@@ -36,13 +36,19 @@ export class CurrencyFormComponent  implements OnInit, OnDestroy{
         this.subscription = this.currencyService.exchangeRate$
             .pipe(
                 map(item => {
-                    return this.checkDisableExchange(item) ? this.formGroup.get('exchangeForce')?.value : item
+                    return this.checkDisableExchange(item) ? {
+                        realValue: item,
+                        calculateValue: this.formGroup.get('exchangeForce')?.value
+                    } : {
+                        realValue: item,
+                        calculateValue: item
+                    }
                 })
             )
             .subscribe(input => {
                 console.log('input ', input)
-                this.valueExchange = input;
-                this.calculateExchange(input);
+                this.valueExchange = input.realValue;
+                this.calculateExchange(input.realValue, input.calculateValue);
             })
     }
 
@@ -60,7 +66,7 @@ export class CurrencyFormComponent  implements OnInit, OnDestroy{
     /**
      * Calculate output of exchange rate based on the type of Switch
      */
-    calculateExchange(exchangeValue: number): void{
+    calculateExchange(realValue:number, exchangeValue: number): void{
         this.submitted = true;
         if(this.formGroup.valid) {
             const resultTmp = this.formGroup.get('exchange')?.value == 'usd' ?
@@ -68,6 +74,13 @@ export class CurrencyFormComponent  implements OnInit, OnDestroy{
                 +this.formGroup.get('amount')?.value * exchangeValue;
             this.resultCalculate = +resultTmp.toFixed(2);
             console.log('this.resultCalculate ', this.resultCalculate)
+
+            this.currencyService.resultHistory.next({
+                realRate: realValue.toFixed(2),
+                enteredRate: this.formGroup.get('exchangeForce')?.value,
+                initialValue: this.formGroup.get('amount')?.value + (this.formGroup.get('exchange')?.value=='usd' ? ' USD' : ' EUR'),
+                calculateValue: this.resultCalculate + (this.formGroup.get('exchange')?.value=='usd' ? ' EUR' : ' USD'),
+            })
         }
     }
 
