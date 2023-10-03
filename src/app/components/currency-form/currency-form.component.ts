@@ -26,6 +26,11 @@ export class CurrencyFormComponent  implements OnInit, OnDestroy{
         // Initialisation form
         this.initForm();
 
+        // Ensure continuity of values
+        this.formGroup.get('exchange')?.valueChanges.subscribe(() => {
+            this.formGroup.get('amount')?.setValue(this.resultCalculate);
+        })
+
         this.subscription = this.currencyService.exchangeRate$
             .subscribe(input => {
               console.log('input ', input)
@@ -40,6 +45,7 @@ export class CurrencyFormComponent  implements OnInit, OnDestroy{
     private initForm(): void{
         this.formGroup = this.fb.group({
             amount: new FormControl('', Validators.required),
+            exchange: new FormControl(''),
         })
     }
 

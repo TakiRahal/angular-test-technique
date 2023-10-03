@@ -5,7 +5,9 @@
         </label>
         <div class="input-group mb-3 has-validation">
                         <span class="input-group-text"
-                              id="exchange-value">EUR</span>
+                              id="exchange-value">
+                            {{formGroup.get('exchange')?.value=='usd' ? ' USD' : ' EUR'}}
+                        </span>
             <input type="number"
                    [className]="formGroup.get('amount')?.invalid && submitted ? 'form-control is-invalid' : 'form-control'"
                    placeholder="Montant a calculer"
@@ -16,20 +18,45 @@
                 Remplir le Montant
             </div>
         </div>
-        <div class="mt-2 card text-center text-bg-warning">
+        <div class="mt-2 card text-center text-bg-warning"  *ngIf="formGroup.get('amount')?.value">
             <div class="card-header">
                 Taux de change {{valueExchange}}
             </div>
             <div class="card-body">
                 <h5 class="card-title">
-                    {{resultCalculate}} USD
+                    {{resultCalculate}} {{formGroup.get('exchange')?.value=='usd' ? ' EUR' : ' USD'}}
                 </h5>
                 <p class="card-text">
-                    {{formGroup.get('amount')?.value}} EUR
+                    {{formGroup.get('amount')?.value}} {{formGroup.get('exchange')?.value=='usd' ? ' USD' : ' EUR'}}
                     =
-                    {{resultCalculate}} USD
+                    {{resultCalculate}} {{formGroup.get('exchange')?.value=='usd' ? ' EUR' : ' USD'}}
                 </p>
             </div>
+        </div>
+    </section>
+    <hr />
+    <section class="switch">
+        <div class="form-check">
+            <input id="flexRadioDefault2"
+                   class="form-check-input"
+                   type="radio"
+                   name="exchange"
+                   value="eur"
+                   formControlName="exchange">
+            <label class="form-check-label" for="flexRadioDefault2">
+                Switch réglé sur "EUR"
+            </label>
+        </div>
+        <div class="form-check">
+            <input id="flexRadioDefault1"
+                   class="form-check-input"
+                   type="radio"
+                   name="exchange"
+                   value="usd"
+                   formControlName="exchange">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Switch réglé sur "USD"
+            </label>
         </div>
     </section>
 </form>
