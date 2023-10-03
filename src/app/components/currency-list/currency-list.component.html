@@ -1,0 +1,25 @@
+<section>
+    <button type="button" class="btn btn-link text-bg-success" (click)="showResultHistory=!showResultHistory">
+        Afficher l’historique des 5 dernières demandes
+    </button>
+    <table class="table" *ngIf="showResultHistory" id="result-history">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Le taux réel</th>
+            <th scope="col">Le taux saisi</th>
+            <th scope="col">La valeur initiale</th>
+            <th scope="col">La valeur calculée</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of arrayHistory.slice(0, 5); let i=index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{item.realRate}}</td>
+            <td>{{item.enteredRate}}</td>
+            <td>{{item.initialValue}}</td>
+            <td>{{item.calculateValue}}</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
