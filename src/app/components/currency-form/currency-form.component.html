@@ -59,4 +59,19 @@
             </label>
         </div>
     </section>
+
+    <hr />
+    <section>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Force un taux de change</label>
+            <input type="number"
+                   class="form-control"
+                   id="exampleInputEmail1"
+                   aria-describedby="emailHelp"
+                   formControlName="exchangeForce" >
+            <div id="emailHelp" class="form-text">
+                Le taux de change fixe sera désactivé lors d'une variation de plus de 2% avec le taux réel
+            </div>
+        </div>
+    </section>
 </form>
